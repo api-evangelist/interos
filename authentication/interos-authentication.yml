@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/interos-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: Interos API Key
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  sources:
+  - openapi/interos-openapi.json
+- name: Interos Customer ID
+  type: apiKey
+  in: header
+  parameter: x-customer-id
+  sources:
+  - openapi/interos-openapi.json
