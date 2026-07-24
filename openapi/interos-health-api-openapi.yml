@@ -1,0 +1,78 @@
+openapi: 3.0.2
+info:
+  title: Interos Groups health API
+  version: 1.0.0
+  description: This API uses location data provided by https://geocode.earth/
+  x-logo: https://www.interos.ai/wp-content/uploads/2019/12/logo_blue-black-1.png
+servers:
+- url: https://api.interos.ai
+security:
+- Interos API Key: []
+- Interos Customer ID: []
+tags:
+- name: health
+paths:
+  /health:
+    get:
+      description: Validate a developer api-key
+      parameters:
+      - description: Developer API-Key
+        in: header
+        name: x-api-key
+        schema:
+          default: ''
+          description: The developer api-key to be validated.
+          title: x-api-key
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/validApiKey'
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+          description: Forbidden Response
+      summary: Validate that a developer api-key is still active
+      tags:
+      - health
+components:
+  schemas:
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
+    validApiKey:
+      properties:
+        statusCode:
+          title: statusCode
+          type: integer
+        time:
+          format: Common Log
+          title: time
+          type: string
+        valid:
+          title: valid
+          type: boolean
+      required:
+      - statusCode
+      - time
+      - valid
+      title: validApiKey
+      type: object
+  securitySchemes:
+    Interos API Key:
+      in: header
+      name: x-api-key
+      type: apiKey
+    Interos Customer ID:
+      in: header
+      name: x-customer-id
+      type: apiKey
