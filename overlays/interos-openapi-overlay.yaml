@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Interos API
+  version: 1.0.0
+extends: openapi/interos-openapi.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-19'
+      x-api-category: supply-chain-risk
+      x-authentication: authentication/interos-authentication.yml
+      x-conventions: conventions/interos-conventions.yml
+      x-errors: errors/interos-problem-types.yml
+      x-rate-limits: rate-limits/interos-rate-limits.yml
+      x-lifecycle: lifecycle/interos-lifecycle.yml
+  - target: $.tags
+    update:
+      - name: supply-chain-risk
+        description: Supplier resilience, risk scores, and relationship-graph operations.

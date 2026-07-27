@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/interos-openapi.json
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: All resource paths are namespaced under /v1/ in openapi/interos-openapi.json.
+status_page: https://status.interos.ai/
+support:
+  availability: 24x7x365 technical support
+  source: https://www.interos.ai/termsofservice
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No public deprecation policy or RFC 8594 Sunset/Deprecation header support was found.
+sla:
+  url: null
+deprecated_operations: []

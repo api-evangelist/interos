@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/interos-openapi.json
+notes: >-
+  No official hosted/remote Interos MCP server was found. The following is a candidate
+  tool surface derived one-to-one from the published OpenAPI operations. Auth is two
+  apiKey headers (x-api-key + x-customer-id).
+server:
+  name: interos
+  transport: http
+  base_url: https://api.interos.ai
+tools:
+  - name: check_api_key
+    description: Validate that a developer api-key is still active.
+    source_operation: openapi/interos-openapi.json#GET /health
+  - name: search_organizations
+    description: Search organizations by name with an optional country filter.
+    source_operation: openapi/interos-openapi.json#get_organizations_search_lite_v1_external_organizations_search_lite_get
+  - name: get_organization_profile
+    description: Get an organization profile, optionally with risk variables and attributes.
+    source_operation: openapi/interos-openapi.json#get_organization_profile_v1_external_organizations__organization_id__get
+  - name: list_organization_groups
+    description: Get all organization groups for the customer.
+    source_operation: openapi/interos-openapi.json#get_all_for_customer_v1_external_organization_groups_get
+  - name: list_group_organizations
+    description: Get organizations belonging to a group.
+    source_operation: openapi/interos-openapi.json#get_organizations_for_group_v1_external_organization_groups__group_id__organizations_get
+  - name: get_organization_connections
+    description: Get supplier connections for an organization (relationship graph).
+    source_operation: openapi/interos-openapi.json#get_suppliers_for_organization_v1_external_organizations__destination_organization_id__connections_get
+  - name: get_organization_suppliers
+    description: Get suppliers for an organization by tier.
+    source_operation: openapi/interos-openapi.json#get_suppliers_for_organization_v1_external_organizations__organization_id__suppliers_get
+  - name: get_custom_fields
+    description: Get the customer's custom field definitions.
+    source_operation: openapi/interos-openapi.json#get_custom_fields_custom_fields_get
+  - name: set_static_custom_field_values
+    description: Post static custom field values for organizations.
+    source_operation: openapi/interos-openapi.json#post_organizations_static_custom_fields_values_organizations_static_custom_fields_values_post
+  - name: get_watchlist_organizations
+    description: Get organizations on a scenario watchlist.
+    source_operation: openapi/interos-openapi.json#get_watchlist_organizations_scenarios_watchlists__watchlist_id__organizations_get

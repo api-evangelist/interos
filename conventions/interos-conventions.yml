@@ -1,0 +1,56 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/interos-openapi.json
+summary: >-
+  Cross-cutting request/response semantics for the Interos API, derived from the
+  published OpenAPI plus the interos.ai commercial product descriptions.
+authentication:
+  style: api-key
+  headers:
+    - name: x-api-key
+      role: developer API key (identity + activation, validated by GET /health)
+    - name: x-customer-id
+      role: customer/tenant scope
+  see: authentication/interos-authentication.yml
+pagination:
+  style: cursor
+  request_params:
+    - limit
+    - next            # opaque cursor; omitted on the first request
+    - return_count    # request total_count in the response
+  response_fields:
+    - data            # array of results
+    - next            # cursor for the following page (null/absent when exhausted)
+    - total_count     # present when return_count=true
+  notes: >-
+    'next' identifies where to start the pagination block and should not be sent on
+    the initial request. Envelope schemas: OrganizationList, OrganizationGroupList,
+    APICustomFieldsResponse, PaginatedListWithReferenceData.
+versioning:
+  style: uri-path
+  current: v1
+  see: lifecycle/interos-lifecycle.yml
+idempotency:
+  supported: false
+  notes: No Idempotency-Key header or idempotent-write contract is documented in the spec.
+error_envelope:
+  style: fastapi-detail
+  shape: '{ "detail": string }  (422: { "detail": [ { loc, msg, type } ] })'
+  see: errors/interos-problem-types.yml
+rate_limiting:
+  documented: true
+  tiers:
+    - name: Standard
+      calls_per_day: 10000
+      rps_sustained: 25
+      rps_burst: 100
+    - name: High-Volume
+      calls_per_day: '>10000'
+      rps_sustained: 25
+      rps_burst: 100
+  format: JSON over standard HTTP
+  source: https://www.interos.ai/commercial-product-descriptions
+  see: rate-limits/interos-rate-limits.yml
+data_access_alternatives:
+  - Workflow Connectors (push risk insights into third-party platforms)
+  - Bulk Data Access via secure Snowflake data sharing (read-only)

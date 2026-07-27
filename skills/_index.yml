@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/interos-openapi.json
+skills:
+  - file: interos-lookup-organization-risk.md
+    name: Look up an organization and read its risk profile
+    api: openapi/interos-openapi.json
+    operations:
+      - get_organizations_search_lite_v1_external_organizations_search_lite_get
+      - get_organization_profile_v1_external_organizations__organization_id__get
+  - file: interos-map-supplier-network.md
+    name: Map an organization's supplier network
+    api: openapi/interos-openapi.json
+    operations:
+      - get_organization_profile_v1_external_organizations__organization_id__get
+      - get_suppliers_for_organization_v1_external_organizations__organization_id__suppliers_get
+      - get_suppliers_for_organization_v1_external_organizations__destination_organization_id__connections_get
+  - file: interos-monitor-scenario-watchlist.md
+    name: Monitor organizations on a scenario watchlist
+    api: openapi/interos-openapi.json
+    operations:
+      - get_all_for_customer_v1_external_organization_groups_get
+      - get_watchlist_organizations_scenarios_watchlists__watchlist_id__organizations_get

@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.interos.ai/commercial-product-descriptions
+notes: >-
+  Interos publishes REST API access tiers in its commercial product descriptions.
+  Both tiers share the same per-second envelope; they differ on daily volume.
+rate_limits:
+  - tier: Standard
+    limit_count: 10000
+    window: day
+    rps_sustained: 25
+    rps_burst: 100
+    format: JSON over standard HTTP
+  - tier: High-Volume
+    limit_count: 10000
+    window: day
+    limit_qualifier: 'over 10,000 calls/day'
+    rps_sustained: 25
+    rps_burst: 100
+    format: JSON over standard HTTP

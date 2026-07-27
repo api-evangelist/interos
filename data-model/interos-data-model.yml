@@ -1,0 +1,62 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/interos-openapi.json
+notes: >-
+  Entity-relationship graph derived from OpenAPI component schemas and id-reference
+  fields. The domain models a supplier-relationship graph: organizations connect to
+  other organizations as suppliers, roll up to an ultimate parent, and are grouped
+  and scored.
+entities:
+  - name: Organization
+    id_field: organization_id
+    key_fields: [name, country_code, industry, ultimate_parent_id, primary_duns_number, primary_cage_code, risk_score, risk_profile]
+    relationships:
+      - type: belongs_to
+        target: Organization
+        via: ultimate_parent_id
+        role: ultimate_parent
+      - type: has_many
+        target: Organization
+        via: suppliers
+        role: suppliers (by tier)
+      - type: has_many
+        target: Organization
+        via: connections
+        role: supplier_connections (relationship graph paths)
+      - type: has_one
+        target: RiskProfile
+        via: risk_profile
+      - type: has_one
+        target: Score
+        via: risk_score
+  - name: OrganizationGroup
+    id_field: group_id
+    relationships:
+      - type: has_many
+        target: Organization
+        via: organizations
+  - name: RiskProfile
+    key_fields: [risk_variables, risk_factors, subfactors]
+    relationships:
+      - type: has_many
+        target: RiskFactorScore
+        via: risk_factors
+      - type: has_many
+        target: RiskVariableScore
+        via: risk_variables
+  - name: Scenario
+    key_fields: [scenario_ids, status, activity]
+    relationships:
+      - type: has_many
+        target: Organization
+        via: watchlist_organizations
+      - type: has_one
+        target: ScenarioOrganizationLink
+        via: scenario_organization_link
+  - name: CustomField
+    id_field: id
+    key_fields: [slug, field_type, is_scenario]
+    relationships:
+      - type: has_many
+        target: Organization
+        via: static_custom_field_values

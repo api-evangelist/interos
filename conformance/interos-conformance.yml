@@ -1,0 +1,24 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/interos-openapi.json
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: Provider publishes an OpenAPI 3.0.2 document at https://api.interos.ai/external_open_api
+  - id: api-key-auth
+    conforms: true
+    evidence: securitySchemes define two apiKey header schemes (x-api-key, x-customer-id)
+  - id: oauth2
+    conforms: false
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: 4xx errors use a FastAPI 'detail' envelope, not application/problem+json
+  - id: cursor-pagination
+    conforms: true
+    evidence: List endpoints share a {data, next, total_count} cursor envelope
+  - id: rfc8594-sunset
+    conforms: false
+  - id: json-api
+    conforms: false

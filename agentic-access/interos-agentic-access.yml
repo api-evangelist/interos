@@ -1,0 +1,121 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/interos-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 10
+  by_action_class:
+    connected: 9
+    acting: 1
+  by_consequence:
+    read: 9
+    write: 1
+  human_in_the_loop_required: 0
+operations:
+- path: /health
+  method: get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/search_lite
+  method: get
+  operationId: get_organizations_search_lite_v1_external_organizations_search_lite_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{organization_id}
+  method: get
+  operationId: get_organization_profile_v1_external_organizations__organization_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organization_groups
+  method: get
+  operationId: get_all_for_customer_v1_external_organization_groups_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organization_groups/{group_id}/organizations
+  method: get
+  operationId: get_organizations_for_group_v1_external_organization_groups__group_id__organizations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{destination_organization_id}/connections
+  method: get
+  operationId: get_suppliers_for_organization_v1_external_organizations__destination_organization_id__connections_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/{organization_id}/suppliers
+  method: get
+  operationId: get_suppliers_for_organization_v1_external_organizations__organization_id__suppliers_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/custom_fields
+  method: get
+  operationId: get_custom_fields_custom_fields_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/organizations/static_custom_fields/values
+  method: post
+  operationId: post_organizations_static_custom_fields_values_organizations_static_custom_fields_values_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/scenarios/watchlists/{watchlist_id}/organizations
+  method: get
+  operationId: get_watchlist_organizations_scenarios_watchlists__watchlist_id__organizations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

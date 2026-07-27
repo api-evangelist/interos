@@ -1,0 +1,47 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/interos-openapi.json
+format: fastapi-detail
+notes: >-
+  Interos API errors are not RFC 9457 problem+json. Client (4xx) errors return a
+  JSON envelope with a string "detail" field (schemas HTTPError / ForbiddenError /
+  UnauthorizedError). 422 validation errors return the FastAPI shape
+  {"detail": [{"loc": [...], "msg": "...", "type": "..."}]} (schema HTTPValidationError).
+  The static-custom-fields POST returns a domain-specific validation envelope
+  (PostOrganizationsStaticCustomFieldsValuesValidationError: message, type, field_index).
+envelopes:
+  - name: HTTPError
+    fields: [detail]
+    used_for: [400, 401, 404]
+  - name: HTTPValidationError
+    fields: [detail]
+    shape: 'detail: [{loc, msg, type}]'
+    used_for: [422]
+  - name: ForbiddenError
+    fields: [detail]
+    used_for: [403]
+problems:
+  - status: 400
+    title: Bad Request
+    schema: HTTPError
+    source_operation: openapi/interos-openapi.json#post_organizations_static_custom_fields_values
+  - status: 401
+    title: Unauthorized
+    schema: UnauthorizedError
+    remediation: Provide a valid x-api-key header for an active developer key.
+    source_operation: openapi/interos-openapi.json#get_organization_profile
+  - status: 403
+    title: Forbidden
+    schema: ForbiddenError
+    remediation: The api-key/customer-id lacks access to this resource or is inactive.
+    source_operation: openapi/interos-openapi.json#health
+  - status: 404
+    title: Not Found
+    schema: HTTPError
+    remediation: The requested organization, group, or watchlist does not exist or is not visible to this customer.
+    source_operation: openapi/interos-openapi.json#get_organization_profile
+  - status: 422
+    title: Unprocessable Entity (Validation Error)
+    schema: HTTPValidationError
+    remediation: One or more query/path/body parameters failed validation; inspect detail[].loc and detail[].msg.
+    source_operation: openapi/interos-openapi.json#get_organizations_search_lite

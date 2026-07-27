@@ -1,0 +1,22 @@
+{
+  "provider": "interos",
+  "sources": [
+    "interos-groups-api-openapi.yml",
+    "interos-health-api-openapi.yml",
+    "interos-organizations-api-openapi.yml",
+    "interos-relationships-api-openapi.yml",
+    "interos-watchtower-api-openapi.yml"
+  ],
+  "outputs": [
+    "interos-groups-api-openapi.yml",
+    "interos-health-api-openapi.yml",
+    "interos-organizations-api-openapi.yml",
+    "interos-relationships-api-openapi.yml",
+    "interos-watchtower-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

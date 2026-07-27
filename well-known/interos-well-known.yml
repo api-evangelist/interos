@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of https://api.interos.ai and https://www.interos.ai
+hosts:
+  - host: https://api.interos.ai
+    notes: >-
+      AWS API Gateway origin; all unauthenticated paths (including /.well-known/*)
+      return 403 MissingAuthenticationToken. No discovery documents are published.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+  - host: https://www.interos.ai
+    notes: Marketing site is WAF-protected; automated fetchers receive 403.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+documents_saved: []
