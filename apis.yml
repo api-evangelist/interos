@@ -125,7 +125,7 @@ common:
 - type: PrivacyPolicy
   url: https://www.interos.ai/privacy-policy/
 - type: OpenAPI
-  url: openapi/interos-openapi.json
+  url: openapi/_original/interos-openapi.json
 - type: Overlay
   url: overlays/interos-openapi-overlay.yaml
 - type: MCPServer
