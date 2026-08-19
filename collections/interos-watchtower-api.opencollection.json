@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Interos Groups Watchtower API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Watchtower",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Custom Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/custom_fields",
+            "params": [
+              {
+                "name": "is_scenario",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 25. Max: 50"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of custom fields."
+        },
+        {
+          "info": {
+            "name": "Post Organizations Static Custom Fields Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.interos.ai/v1/organizations/static_custom_fields/values",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set static custom field values for multiple organizations"
+        },
+        {
+          "info": {
+            "name": "Get Watchlist Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/scenarios/watchlists/:watchlist_id/organizations",
+            "params": [
+              {
+                "name": "watchlist_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scenario_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "match_all_scenarios",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "organization_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scen_activity",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 25. Max: 50"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of organizations for a watchlist. Response includes groups and scenario links for each organization, as well as full scenario and custom field details as reference data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

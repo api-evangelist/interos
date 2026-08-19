@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Interos Groups Relationships API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Relationships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Suppliers For Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organizations/:destination_organization_id/connections",
+            "params": [
+              {
+                "name": "destination_organization_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "path_length",
+                "value": "",
+                "type": "query",
+                "description": "Length of connection paths to retrieve"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 500. Max: 2000"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              },
+              {
+                "name": "enable_restrictions_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables per entity restrictions attributes and removes restrictions scores"
+              },
+              {
+                "name": "enable_iscore_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables recalibrated iScore levels"
+              }
+            ]
+          },
+          "docs": "View how you are connected to this organization"
+        },
+        {
+          "info": {
+            "name": "Get Suppliers For Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organizations/:organization_id/suppliers",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tier",
+                "value": "",
+                "type": "query",
+                "description": "Tier of suppliers to retrieve. tier=1 will return direct suppliers of the organization. tier=2 will return all direct suppliers and their sub-suppliers"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 500. Max: 2000"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              },
+              {
+                "name": "enable_restrictions_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables per entity restrictions attributes and removes restrictions scores"
+              },
+              {
+                "name": "enable_iscore_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables recalibrated iScore levels"
+              }
+            ]
+          },
+          "docs": "Get a paginated lists of suppliers for an organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

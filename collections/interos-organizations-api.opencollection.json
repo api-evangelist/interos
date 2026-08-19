@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Interos Groups Organizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search organizations by name with optional country filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organizations/search_lite",
+            "params": [
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query",
+                "description": "Search term to match against organization names, duns, cage code, ueid or interos id"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "Optional ISO country code to filter results"
+              }
+            ]
+          },
+          "docs": "Search organizations by name, duns, cage code, ueid or interos id with optional country filter"
+        },
+        {
+          "info": {
+            "name": "Get Organization Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organizations/:organization_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_risk_variables",
+                "value": "",
+                "type": "query",
+                "description": "DEPRECATED. Use include=risk_details instead"
+              },
+              {
+                "name": "include_attributes",
+                "value": "",
+                "type": "query",
+                "description": "DEPRECATED. Use include=risk_details instead"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of expandable data to include. Valid values:\n* `locations`: returns **_locations_** array with all locations for the organization\n* `groups`: returns **_group_info_** array with group membership for the organization and customer\n* `product_categories`: returns **_product_categories_bought_** and **_product_categories_sold_** arrays with product categories and last observed dates for the organization\n* `restrictions`: returns **_restrictions_** array with restricted lists on which an organization appears\n* `risk_overview`: returns **_risk_profile_** object with iScore and risk factor scores\n* `detailed_risk`: returns **_risk_profile_** object with iScore, risk factor scores, risk sub-factor* scores and attributes* (*unlocked organizations only)\n\nExample: `?include=locations,groups`"
+              },
+              {
+                "name": "detail_level",
+                "value": "",
+                "type": "query",
+                "description": "\nLevel of firmographics to include:\n* basic: id, name, url, country code, iScore\n* detailed: all available firmographics\n               "
+              },
+              {
+                "name": "enable_restrictions_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables per entity restrictions attributes and removes restrictions scores"
+              },
+              {
+                "name": "enable_iscore_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables recalibrated iScore levels"
+              }
+            ]
+          },
+          "docs": "Get the profile for an organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

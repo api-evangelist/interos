@@ -1,0 +1,733 @@
+{
+  "item": [
+    {
+      "id": "90e0e328-bc34-4fab-af5c-3b86d98b324b",
+      "name": "Organizations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c57f896-d96c-48ff-96af-16e4f361f22c",
+          "name": "Search organizations by name with optional country filter",
+          "request": {
+            "name": "Search organizations by name with optional country filter",
+            "description": {
+              "content": "Search organizations by name, duns, cage code, ueid or interos id with optional country filter",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                "search_lite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search_term",
+                  "value": "<string>",
+                  "description": "(Required) Search term to match against organization names, duns, cage code, ueid or interos id"
+                },
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "Optional ISO country code to filter results"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0875544e-572a-42d7-bfb1-028935ac402c",
+              "name": "Succeeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "search_lite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"c7073990-4fcb-218a-e33a-894a89ec51e1\",\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"city\": \"string\",\n    \"province\": \"string\",\n    \"country_code\": \"string\",\n    \"street_address\": \"string\",\n    \"street_address_2\": \"string\",\n    \"postal_code\": \"string\",\n    \"duns\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cage_code\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ueid\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"id\": \"408fa859-76f7-3db7-6110-033518c858bf\",\n    \"name\": \"string\",\n    \"url\": \"string\",\n    \"city\": \"string\",\n    \"province\": \"string\",\n    \"country_code\": \"string\",\n    \"street_address\": \"string\",\n    \"street_address_2\": \"string\",\n    \"postal_code\": \"string\",\n    \"duns\": [\n      \"string\",\n      \"string\"\n    ],\n    \"cage_code\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ueid\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17ae0577-e712-4921-839f-de4913cdc1c1",
+              "name": "Forbidden Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "search_lite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06096286-e506-41ef-beae-10d7831a63c1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    "search_lite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country_code",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb896745-8e6f-4d48-ae71-6b9e85098eb4",
+          "name": "Get Organization Profile",
+          "request": {
+            "name": "Get Organization Profile",
+            "description": {
+              "content": "Get the profile for an organization",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_risk_variables",
+                  "value": "false",
+                  "description": "DEPRECATED. Use include=risk_details instead"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_attributes",
+                  "value": "false",
+                  "description": "DEPRECATED. Use include=risk_details instead"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "risk_overview",
+                  "description": "Comma separated list of expandable data to include. Valid values:\n* `locations`: returns **_locations_** array with all locations for the organization\n* `groups`: returns **_group_info_** array with group membership for the organization and customer\n* `product_categories`: returns **_product_categories_bought_** and **_product_categories_sold_** arrays with product categories and last observed dates for the organization\n* `restrictions`: returns **_restrictions_** array with restricted lists on which an organization appears\n* `risk_overview`: returns **_risk_profile_** object with iScore and risk factor scores\n* `detailed_risk`: returns **_risk_profile_** object with iScore, risk factor scores, risk sub-factor* scores and attributes* (*unlocked organizations only)\n\nExample: `?include=locations,groups`"
+                },
+                {
+                  "disabled": false,
+                  "key": "detail_level",
+                  "value": "detailed",
+                  "description": "\nLevel of firmographics to include:\n* basic: id, name, url, country code, iScore\n* detailed: all available firmographics\n               "
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_restrictions_update",
+                  "value": "false",
+                  "description": "Enables per entity restrictions attributes and removes restrictions scores"
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_iscore_update",
+                  "value": "false",
+                  "description": "Enables recalibrated iScore levels"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "organization_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "458bc72e-3371-4239-853d-390512a301fa",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_risk_variables",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include_attributes",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include",
+                      "value": "risk_overview"
+                    },
+                    {
+                      "key": "detail_level",
+                      "value": "detailed"
+                    },
+                    {
+                      "key": "enable_restrictions_update",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_iscore_update",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"organization_id\": \"1c0479cd-c052-1d01-db2f-e640ed97098b\",\n  \"name\": \"string\",\n  \"country_code\": \"string\",\n  \"description\": \"string\",\n  \"description_long\": \"string\",\n  \"founding_date\": \"1991-05-25\",\n  \"group_info\": [\n    {\n      \"group_id\": \"95dcc43d-1f03-0eca-02d1-a454dffd2f21\",\n      \"name\": \"string\"\n    },\n    {\n      \"group_id\": \"16112109-554e-051b-e910-daebb2914831\",\n      \"name\": \"string\"\n    }\n  ],\n  \"industry\": \"string\",\n  \"industry_category_code\": \"string\",\n  \"industry_category_name\": \"string\",\n  \"industry_naics_code\": \"string\",\n  \"industry_naics_name\": \"string\",\n  \"industry_sic_code\": \"string\",\n  \"industry_sic_name\": \"string\",\n  \"is_pr\": false,\n  \"is_unlocked\": false,\n  \"locations\": [\n    {\n      \"city\": \"string\",\n      \"country_code\": \"string\",\n      \"is_primary\": true,\n      \"latitude\": 2284.3081927776566,\n      \"longitude\": 6754.029824485246,\n      \"postal_code\": \"string\",\n      \"province\": \"string\",\n      \"street_address\": \"string\",\n      \"street_address_2\": \"string\"\n    },\n    {\n      \"city\": \"string\",\n      \"country_code\": \"string\",\n      \"is_primary\": false,\n      \"latitude\": 6590.6902101758515,\n      \"longitude\": 1734.961882536995,\n      \"postal_code\": \"string\",\n      \"province\": \"string\",\n      \"street_address\": \"string\",\n      \"street_address_2\": \"string\"\n    }\n  ],\n  \"new_organization_id\": \"5ff1f9b1-fd42-9d12-63c9-12cd4e24888c\",\n  \"primary_cage_code\": \"string\",\n  \"primary_duns_number\": \"string\",\n  \"primary_location\": {\n    \"city\": \"string\",\n    \"country_code\": \"string\",\n    \"is_primary\": true,\n    \"latitude\": 6570.325424693107,\n    \"longitude\": 9553.28686101772,\n    \"postal_code\": \"string\",\n    \"province\": \"string\",\n    \"street_address\": \"string\",\n    \"street_address_2\": \"string\"\n  },\n  \"product_categories_bought\": [\n    {\n      \"product_category_name\": \"string\",\n      \"last_observed_date\": \"string\"\n    },\n    {\n      \"product_category_name\": \"string\",\n      \"last_observed_date\": \"string\"\n    }\n  ],\n  \"product_categories_sold\": [\n    {\n      \"product_category_name\": \"string\",\n      \"last_observed_date\": \"string\"\n    },\n    {\n      \"product_category_name\": \"string\",\n      \"last_observed_date\": \"string\"\n    }\n  ],\n  \"profile_link\": \"string\",\n  \"restrictions\": [\n    {\n      \"list_id\": \"cd5b6440-12ce-4487-7201-e5c69296a272\",\n      \"list_name\": \"string\",\n      \"list_category\": \"string\",\n      \"list_description\": \"string\",\n      \"list_key\": \"string\",\n      \"list_segment\": \"Firm\",\n      \"list_source_url\": \"string\",\n      \"list_additional_context\": \"string\",\n      \"list_first_added_date\": \"string\",\n      \"list_removed_date\": \"string\",\n      \"list_last_observed_date\": \"string\",\n      \"list_active_status\": false\n    },\n    {\n      \"list_id\": \"a1635a4f-5005-741a-7bf8-eb2e80dc4abe\",\n      \"list_name\": \"string\",\n      \"list_category\": \"string\",\n      \"list_description\": \"string\",\n      \"list_key\": \"string\",\n      \"list_segment\": \"Firm\",\n      \"list_source_url\": \"string\",\n      \"list_additional_context\": \"string\",\n      \"list_first_added_date\": \"string\",\n      \"list_removed_date\": \"string\",\n      \"list_last_observed_date\": \"string\",\n      \"list_active_status\": false\n    }\n  ],\n  \"risk_profile\": {\n    \"overall\": {\n      \"name\": \"string\",\n      \"label\": \"string\",\n      \"timestamp\": \"2015-12-28T09:54:28.018Z\",\n      \"description\": \"string\",\n      \"level\": \"Low\",\n      \"score\": 7140\n    },\n    \"risk_factors\": [\n      {\n        \"level\": \"Extreme\",\n        \"name\": \"string\",\n        \"timestamp\": \"1976-06-10T03:47:18.998Z\",\n        \"description\": \"string\",\n        \"label\": \"string\",\n        \"risk_variables\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"timestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"attributes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"score\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"segment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"timestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"attributes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"score\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"segment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"score\": 8363,\n        \"count_restriction_lists\": 5884\n      },\n      {\n        \"level\": \"High\",\n        \"name\": \"string\",\n        \"timestamp\": \"1988-06-21T21:44:35.958Z\",\n        \"description\": \"string\",\n        \"label\": \"string\",\n        \"risk_variables\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"timestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"attributes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"score\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"segment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"label\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"timestamp\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"attributes\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"description\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"level\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"score\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"segment\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"score\": 7278,\n        \"count_restriction_lists\": 4780\n      }\n    ]\n  },\n  \"risk_score\": {\n    \"level\": \"High\",\n    \"score\": 6885\n  },\n  \"ultimate_parent_id\": \"string\",\n  \"ultimate_parent_name\": \"string\",\n  \"ultimate_parent_country_code\": \"string\",\n  \"updated_date\": \"1959-07-17T20:53:51.114Z\",\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0dfcd5b2-29c2-4ab9-8a72-318f7a366256",
+              "name": "Unauthorized Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_risk_variables",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include_attributes",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include",
+                      "value": "risk_overview"
+                    },
+                    {
+                      "key": "detail_level",
+                      "value": "detailed"
+                    },
+                    {
+                      "key": "enable_restrictions_update",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_iscore_update",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ebd898b-817a-4274-98c6-f746ee10edb1",
+              "name": "Forbidden Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_risk_variables",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include_attributes",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include",
+                      "value": "risk_overview"
+                    },
+                    {
+                      "key": "detail_level",
+                      "value": "detailed"
+                    },
+                    {
+                      "key": "enable_restrictions_update",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_iscore_update",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0204719c-8d47-4642-b5ca-72c10a9063ac",
+              "name": "Not Found Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_risk_variables",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include_attributes",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include",
+                      "value": "risk_overview"
+                    },
+                    {
+                      "key": "detail_level",
+                      "value": "detailed"
+                    },
+                    {
+                      "key": "enable_restrictions_update",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_iscore_update",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe8cc068-7772-4a6c-acad-6baca536c6d5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_risk_variables",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include_attributes",
+                      "value": "false"
+                    },
+                    {
+                      "key": "include",
+                      "value": "risk_overview"
+                    },
+                    {
+                      "key": "detail_level",
+                      "value": "detailed"
+                    },
+                    {
+                      "key": "enable_restrictions_update",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_iscore_update",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "organization_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.interos.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ca29efff-b351-4425-b019-6eca54e95d21",
+    "name": "Interos Groups Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API uses location data provided by https://geocode.earth/",
+      "type": "text/plain"
+    }
+  }
+}

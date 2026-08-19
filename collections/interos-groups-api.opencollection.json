@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Interos Groups API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Groups For Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organization_groups",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 100. Max: 500"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              }
+            ]
+          },
+          "docs": "Get a list of organization groups for a customer"
+        },
+        {
+          "info": {
+            "name": "Get Organizations For Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.interos.ai/v1/organization_groups/:group_id/organizations",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Used to limit the number of records returned. Default: 100. Max: 500"
+              },
+              {
+                "name": "next",
+                "value": "",
+                "type": "query",
+                "description": "Identifies where to start the pagination block and should not be sent on the initial request."
+              },
+              {
+                "name": "return_count",
+                "value": "",
+                "type": "query",
+                "description": "Return total number of affected records. Only valid on the initial request."
+              },
+              {
+                "name": "enable_restrictions_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables per entity restrictions attributes and removes restrictions scores"
+              },
+              {
+                "name": "enable_iscore_update",
+                "value": "",
+                "type": "query",
+                "description": "Enables recalibrated iScore levels"
+              },
+              {
+                "name": "updated_after",
+                "value": "",
+                "type": "query",
+                "description": "Only return organizations updated after this ISO 8601 timestamp (e.g. 2026-06-01T00:00:00Z). Timezone offsets are honored; a value with no offset is treated as UTC. The comparison is strictly after. If omitted, all organizations in the group are returned."
+              }
+            ]
+          },
+          "docs": "Get a paginated lists of organizations in a group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
