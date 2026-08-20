@@ -40,6 +40,14 @@ tags:
 - Supplier Risk
 - Third-Party Risk
 - Artificial Intelligence
+tags_raw:
+- Company
+- Enterprise
+- Supply Chain
+- Risk Management
+- Supplier Risk
+- Third-Party Risk
+- Artificial Intelligence
 - API
 apis:
 - aid: interos:interos-groups-api
@@ -48,6 +56,8 @@ apis:
   humanURL: https://api.interos.ai/docs
   baseURL: https://api.interos.ai
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -60,6 +70,8 @@ apis:
   humanURL: https://api.interos.ai/docs
   baseURL: https://api.interos.ai
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -72,6 +84,8 @@ apis:
   humanURL: https://api.interos.ai/docs
   baseURL: https://api.interos.ai
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
