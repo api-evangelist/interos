@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Interos Groups Watchtower API
+  title: Interos Watchtower API
   version: 1.0.0
   description: This API uses location data provided by https://geocode.earth/
   x-logo: https://www.interos.ai/wp-content/uploads/2019/12/logo_blue-black-1.png
@@ -220,76 +220,43 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CustomFieldDataElementValue:
-      title: CustomFieldDataElementValue
+    RiskSubfactorScoreDataElementValue:
+      title: RiskSubfactorScoreDataElementValue
       required:
-      - field_slug
+      - risk_subfactor_key
       type: object
       properties:
         data_element_type:
           title: Data Element Type
           enum:
-          - custom_field
+          - risk_subfactor_score
           type: string
-          default: custom_field
-        field_slug:
-          title: Field Slug
+          default: risk_subfactor_score
+        risk_subfactor_key:
+          title: Risk Subfactor Key
           type: string
         value:
           title: Value
-          anyOf:
-          - type: string
-          - type: boolean
-          - type: integer
-          - type: number
-          - $ref: '#/components/schemas/EntityTableFieldValue'
-    RiskFactorCodes:
-      title: RiskFactorCodes
-      enum:
-      - geopolitical
-      - finance
-      - cyber
-      - esg
-      - operations
-      - restrictions
-      - catastrophic
-      type: string
-      description: An enumeration.
-    APICustomFieldsResponse:
-      title: APICustomFieldsResponse
-      type: object
-      properties:
-        data:
-          title: Data
-          type: array
-          items:
-            $ref: '#/components/schemas/APICustomField'
-          default: []
-        total_count:
-          title: Total Count
           type: integer
-        next:
-          title: Next
-          type: string
-    EntityTableFieldValue:
-      title: EntityTableFieldValue
-      required:
-      - column_slugs
-      - rows
-      type: object
-      properties:
-        column_slugs:
-          title: Column Slugs
-          type: array
-          items:
-            type: string
-          description: The slugs of the columns. The ordering of the slugs derives the ordering of cell values within the rows.
-        rows:
-          title: Rows
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityTableFieldValueRow'
-          description: The rows making up this table value.
+    FieldType:
+      title: FieldType
+      enum:
+      - BOOLEAN
+      - DATE
+      - DATE_TIME
+      - DECIMAL
+      - DYNAMIC_BOOLEAN
+      - DYNAMIC_DECIMAL
+      - DYNAMIC_INTEGER
+      - DYNAMIC_PRIORITY
+      - DYNAMIC_TEXT
+      - INTEGER
+      - LONG_TEXT
+      - MULTI_SELECT
+      - SHORT_TEXT
+      - SINGLE_SELECT
+      - TABLE
+      description: An enumeration.
     ScenarioOrganizationLinkCurrentDetectionDetails:
       title: ScenarioOrganizationLinkCurrentDetectionDetails
       required:
@@ -306,74 +273,206 @@ components:
             - $ref: '#/components/schemas/RiskSubfactorScoreDataElementValue'
             - $ref: '#/components/schemas/RiskFactorScoreDataElementValue'
           description: The data elements that are contributing to this organization triggering this scenario.
-    Scenario:
-      title: Scenario
-      required:
-      - scenario_id
-      - scenario_name
-      - backing_custom_field_id
-      type: object
-      properties:
-        scenario_id:
-          title: Scenario Id
-          type: string
-          format: uuid
-        scenario_name:
-          title: Scenario Name
-          type: string
-        scenario_description:
-          title: Scenario Description
-          type: string
-        backing_custom_field_id:
-          title: Backing Custom Field Id
-          type: string
-          format: uuid
-    PostStaticCustomFieldValue:
-      title: PostStaticCustomFieldValue
-      type: object
-      properties:
-        value:
-          title: Value
-    WatchlistOrganization:
-      title: WatchlistOrganization
+    RiskFactorCodes:
+      title: RiskFactorCodes
+      enum:
+      - geopolitical
+      - finance
+      - cyber
+      - esg
+      - operations
+      - restrictions
+      - catastrophic
+      type: string
+      description: An enumeration.
+    PostOrganizationsStaticCustomFieldsValuesInvalidOrganization:
+      title: PostOrganizationsStaticCustomFieldsValuesInvalidOrganization
       required:
       - organization_id
-      - priority_value
-      - groups
-      - scenario_links
-      - data_element_values
+      - validation_errors
       type: object
       properties:
         organization_id:
           title: Organization Id
           type: string
           format: uuid
-        organization_name:
-          title: Organization Name
+        validation_errors:
+          title: Validation Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/PostOrganizationsStaticCustomFieldsValuesValidationError'
+    HTTPError:
+      properties:
+        detail:
+          title: Detail
           type: string
-        priority_value:
-          title: Priority Value
+      required:
+      - detail
+      title: HTTPError
+      type: object
+    RiskFactorScoreDataElementValue:
+      title: RiskFactorScoreDataElementValue
+      required:
+      - risk_factor_key
+      type: object
+      properties:
+        data_element_type:
+          title: Data Element Type
+          enum:
+          - risk_factor_score
+          type: string
+          default: risk_factor_score
+        risk_factor_key:
+          $ref: '#/components/schemas/RiskFactorCodes'
+        value:
+          title: Value
           type: integer
-        groups:
-          title: Groups
+    PostStaticCustomFieldValue:
+      title: PostStaticCustomFieldValue
+      type: object
+      properties:
+        value:
+          title: Value
+    PostOrganizationsStaticCustomFieldsValuesValidationError:
+      title: PostOrganizationsStaticCustomFieldsValuesValidationError
+      required:
+      - message
+      - type
+      type: object
+      properties:
+        message:
+          title: Message
+          type: string
+        type:
+          title: Type
+          type: string
+        field_index:
+          title: Field Index
+          type: integer
+    APICustomFieldsResponse:
+      title: APICustomFieldsResponse
+      type: object
+      properties:
+        data:
+          title: Data
           type: array
           items:
-            $ref: '#/components/schemas/GroupWithOrgTiers'
-        scenario_links:
-          title: Scenario Links
+            $ref: '#/components/schemas/APICustomField'
+          default: []
+        total_count:
+          title: Total Count
+          type: integer
+        next:
+          title: Next
+          type: string
+    PostOrganizationWithStaticCustomFieldValues:
+      title: PostOrganizationWithStaticCustomFieldValues
+      required:
+      - organization_id
+      - values
+      type: object
+      properties:
+        organization_id:
+          title: Organization Id
+          type: string
+          format: uuid
+        values:
+          title: Values
+          maxItems: 50
+          minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/ScenarioOrganizationLink'
-        data_element_values:
-          title: Data Element Values
+            $ref: '#/components/schemas/PostStaticCustomFieldValue'
+    ScenarioOrganizationStatus:
+      title: ScenarioOrganizationStatus
+      enum:
+      - open
+      - in_progress
+      - closed
+      description: An enumeration.
+    CustomField:
+      title: CustomField
+      required:
+      - custom_field_id
+      - field_title
+      - field_type
+      - field_slug
+      type: object
+      properties:
+        custom_field_id:
+          title: Custom Field Id
+          type: string
+          format: uuid
+        field_title:
+          title: Field Title
+          type: string
+        field_type:
+          title: Field Type
+          type: string
+        field_slug:
+          title: Field Slug
+          type: string
+        description:
+          title: Description
+          type: string
+        metadata:
+          title: Metadata
+          type: object
+        field_settings:
+          title: Field Settings
+          type: object
+    EntityTableFieldValueRow:
+      title: EntityTableFieldValueRow
+      required:
+      - cell_values
+      type: object
+      properties:
+        cell_values:
+          title: Cell Values
           type: array
           items:
             anyOf:
-            - $ref: '#/components/schemas/CustomFieldDataElementValue'
-            - $ref: '#/components/schemas/AttributeDataElementValue'
-            - $ref: '#/components/schemas/RiskSubfactorScoreDataElementValue'
-            - $ref: '#/components/schemas/RiskFactorScoreDataElementValue'
-          description: Values this organization has for the data elements used by watchlist columns.
+            - type: string
+            - type: boolean
+            - type: integer
+            - type: number
+          description: The values this row has for each cell.
+    ScenarioActivity:
+      title: ScenarioActivity
+      enum:
+      - ALL
+      - POSITIVE
+      - NEGATIVE
+      description: An enumeration.
+    GroupWithOrgTiers:
+      title: GroupWithOrgTiers
+      required:
+      - group_id
+      - group_name
+      - tiers
+      type: object
+      properties:
+        group_id:
+          title: Group Id
+          type: string
+          format: uuid
+        group_name:
+          title: Group Name
+          type: string
+        tiers:
+          title: Tiers
+          type: array
+          items:
+            type: integer
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     ScenarioOrganizationLink:
       title: ScenarioOrganizationLink
       required:
@@ -434,136 +533,86 @@ components:
           allOf:
           - $ref: '#/components/schemas/ScenarioOrganizationLinkCurrentDetectionDetails'
           description: Information about the current detection. Null if the organization is not currently triggering this scenario.
-    PostOrganizationsStaticCustomFieldsValuesValidationError:
-      title: PostOrganizationsStaticCustomFieldsValuesValidationError
+    Scenario:
+      title: Scenario
       required:
-      - message
-      - type
+      - scenario_id
+      - scenario_name
+      - backing_custom_field_id
       type: object
       properties:
-        message:
-          title: Message
-          type: string
-        type:
-          title: Type
-          type: string
-        field_index:
-          title: Field Index
-          type: integer
-    AttributeDataElementValue:
-      title: AttributeDataElementValue
-      required:
-      - attribute_key
-      type: object
-      properties:
-        data_element_type:
-          title: Data Element Type
-          enum:
-          - attribute
-          type: string
-          default: attribute
-        attribute_key:
-          title: Attribute Key
-          type: string
-        value:
-          title: Value
-          anyOf:
-          - type: string
-          - type: boolean
-          - type: integer
-          - type: number
-          - $ref: '#/components/schemas/EntityTableFieldValue'
-        formatted_value:
-          title: Formatted Value
-          type: string
-    FieldType:
-      title: FieldType
-      enum:
-      - BOOLEAN
-      - DATE
-      - DATE_TIME
-      - DECIMAL
-      - DYNAMIC_BOOLEAN
-      - DYNAMIC_DECIMAL
-      - DYNAMIC_INTEGER
-      - DYNAMIC_PRIORITY
-      - DYNAMIC_TEXT
-      - INTEGER
-      - LONG_TEXT
-      - MULTI_SELECT
-      - SHORT_TEXT
-      - SINGLE_SELECT
-      - TABLE
-      description: An enumeration.
-    RiskFactorScoreDataElementValue:
-      title: RiskFactorScoreDataElementValue
-      required:
-      - risk_factor_key
-      type: object
-      properties:
-        data_element_type:
-          title: Data Element Type
-          enum:
-          - risk_factor_score
-          type: string
-          default: risk_factor_score
-        risk_factor_key:
-          $ref: '#/components/schemas/RiskFactorCodes'
-        value:
-          title: Value
-          type: integer
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    CustomField:
-      title: CustomField
-      required:
-      - custom_field_id
-      - field_title
-      - field_type
-      - field_slug
-      type: object
-      properties:
-        custom_field_id:
-          title: Custom Field Id
+        scenario_id:
+          title: Scenario Id
           type: string
           format: uuid
-        field_title:
-          title: Field Title
+        scenario_name:
+          title: Scenario Name
           type: string
-        field_type:
-          title: Field Type
+        scenario_description:
+          title: Scenario Description
           type: string
-        field_slug:
-          title: Field Slug
+        backing_custom_field_id:
+          title: Backing Custom Field Id
           type: string
-        description:
-          title: Description
+          format: uuid
+    PostOrganizationsStaticCustomFieldsValuesResponse:
+      title: PostOrganizationsStaticCustomFieldsValuesResponse
+      required:
+      - updated_organization_ids
+      - invalid_organizations
+      type: object
+      properties:
+        updated_organization_ids:
+          title: Updated Organization Ids
+          type: array
+          items:
+            type: string
+            format: uuid
+        invalid_organizations:
+          title: Invalid Organizations
+          type: array
+          items:
+            $ref: '#/components/schemas/PostOrganizationsStaticCustomFieldsValuesInvalidOrganization'
+    WatchlistOrganization:
+      title: WatchlistOrganization
+      required:
+      - organization_id
+      - priority_value
+      - groups
+      - scenario_links
+      - data_element_values
+      type: object
+      properties:
+        organization_id:
+          title: Organization Id
           type: string
-        metadata:
-          title: Metadata
-          type: object
-        field_settings:
-          title: Field Settings
-          type: object
+          format: uuid
+        organization_name:
+          title: Organization Name
+          type: string
+        priority_value:
+          title: Priority Value
+          type: integer
+        groups:
+          title: Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupWithOrgTiers'
+        scenario_links:
+          title: Scenario Links
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioOrganizationLink'
+        data_element_values:
+          title: Data Element Values
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/CustomFieldDataElementValue'
+            - $ref: '#/components/schemas/AttributeDataElementValue'
+            - $ref: '#/components/schemas/RiskSubfactorScoreDataElementValue'
+            - $ref: '#/components/schemas/RiskFactorScoreDataElementValue'
+          description: Values this organization has for the data elements used by watchlist columns.
     PaginatedListWithReferenceData_WatchlistOrganization__GetOrgsWithScenariosForWatchlistReferenceData_:
       title: PaginatedListWithReferenceData[WatchlistOrganization, GetOrgsWithScenariosForWatchlistReferenceData]
       type: object
@@ -585,199 +634,29 @@ components:
         next:
           title: Next
           type: string
-    PostOrganizationsStaticCustomFieldsValuesRequest:
-      title: PostOrganizationsStaticCustomFieldsValuesRequest
+    CustomFieldDataElementValue:
+      title: CustomFieldDataElementValue
       required:
-      - custom_field_slugs
-      - organizations
-      type: object
-      properties:
-        custom_field_slugs:
-          title: Custom Field Slugs
-          maxItems: 50
-          minItems: 1
-          type: array
-          items:
-            type: string
-        organizations:
-          title: Organizations
-          maxItems: 1000
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/PostOrganizationWithStaticCustomFieldValues'
-    PostOrganizationsStaticCustomFieldsValuesInvalidOrganization:
-      title: PostOrganizationsStaticCustomFieldsValuesInvalidOrganization
-      required:
-      - organization_id
-      - validation_errors
-      type: object
-      properties:
-        organization_id:
-          title: Organization Id
-          type: string
-          format: uuid
-        validation_errors:
-          title: Validation Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/PostOrganizationsStaticCustomFieldsValuesValidationError'
-    GetOrgsWithScenariosForWatchlistReferenceData:
-      title: GetOrgsWithScenariosForWatchlistReferenceData
-      required:
-      - scenarios
-      - custom_fields
-      - attributes
-      - risk_subfactors
-      type: object
-      properties:
-        scenarios:
-          title: Scenarios
-          type: array
-          items:
-            $ref: '#/components/schemas/Scenario'
-        custom_fields:
-          title: Custom Fields
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomField'
-        attributes:
-          title: Attributes
-          type: array
-          items:
-            $ref: '#/components/schemas/Attribute'
-        risk_subfactors:
-          title: Risk Subfactors
-          type: array
-          items:
-            $ref: '#/components/schemas/RiskSubfactor'
-    RiskSubfactor:
-      title: RiskSubfactor
-      required:
-      - risk_subfactor_key
-      type: object
-      properties:
-        risk_subfactor_key:
-          title: Risk Subfactor Key
-          type: string
-        risk_subfactor_name:
-          title: Risk Subfactor Name
-          type: string
-        risk_subfactor_segment:
-          title: Risk Subfactor Segment
-          type: string
-        risk_subfactor_description:
-          title: Risk Subfactor Description
-          type: string
-        risk_factor_key:
-          title: Risk Factor Key
-          type: string
-    ScenarioOrganizationStatus:
-      title: ScenarioOrganizationStatus
-      enum:
-      - open
-      - in_progress
-      - closed
-      description: An enumeration.
-    RiskSubfactorScoreDataElementValue:
-      title: RiskSubfactorScoreDataElementValue
-      required:
-      - risk_subfactor_key
+      - field_slug
       type: object
       properties:
         data_element_type:
           title: Data Element Type
           enum:
-          - risk_subfactor_score
+          - custom_field
           type: string
-          default: risk_subfactor_score
-        risk_subfactor_key:
-          title: Risk Subfactor Key
+          default: custom_field
+        field_slug:
+          title: Field Slug
           type: string
         value:
           title: Value
-          type: integer
-    GroupWithOrgTiers:
-      title: GroupWithOrgTiers
-      required:
-      - group_id
-      - group_name
-      - tiers
-      type: object
-      properties:
-        group_id:
-          title: Group Id
-          type: string
-          format: uuid
-        group_name:
-          title: Group Name
-          type: string
-        tiers:
-          title: Tiers
-          type: array
-          items:
-            type: integer
-    PostOrganizationWithStaticCustomFieldValues:
-      title: PostOrganizationWithStaticCustomFieldValues
-      required:
-      - organization_id
-      - values
-      type: object
-      properties:
-        organization_id:
-          title: Organization Id
-          type: string
-          format: uuid
-        values:
-          title: Values
-          maxItems: 50
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/PostStaticCustomFieldValue'
-    PostOrganizationsStaticCustomFieldsValuesResponse:
-      title: PostOrganizationsStaticCustomFieldsValuesResponse
-      required:
-      - updated_organization_ids
-      - invalid_organizations
-      type: object
-      properties:
-        updated_organization_ids:
-          title: Updated Organization Ids
-          type: array
-          items:
-            type: string
-            format: uuid
-        invalid_organizations:
-          title: Invalid Organizations
-          type: array
-          items:
-            $ref: '#/components/schemas/PostOrganizationsStaticCustomFieldsValuesInvalidOrganization'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    EntityTableFieldValueRow:
-      title: EntityTableFieldValueRow
-      required:
-      - cell_values
-      type: object
-      properties:
-        cell_values:
-          title: Cell Values
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: boolean
-            - type: integer
-            - type: number
-          description: The values this row has for each cell.
+          anyOf:
+          - type: string
+          - type: boolean
+          - type: integer
+          - type: number
+          - $ref: '#/components/schemas/EntityTableFieldValue'
     APICustomField:
       title: APICustomField
       required:
@@ -818,13 +697,6 @@ components:
         category_name:
           title: Category Name
           type: string
-    ScenarioActivity:
-      title: ScenarioActivity
-      enum:
-      - ALL
-      - POSITIVE
-      - NEGATIVE
-      description: An enumeration.
     Attribute:
       title: Attribute
       required:
@@ -843,21 +715,149 @@ components:
         risk_subfactor_key:
           title: Risk Subfactor Key
           type: string
-    HTTPError:
+    GetOrgsWithScenariosForWatchlistReferenceData:
+      title: GetOrgsWithScenariosForWatchlistReferenceData
+      required:
+      - scenarios
+      - custom_fields
+      - attributes
+      - risk_subfactors
+      type: object
       properties:
-        detail:
-          title: Detail
+        scenarios:
+          title: Scenarios
+          type: array
+          items:
+            $ref: '#/components/schemas/Scenario'
+        custom_fields:
+          title: Custom Fields
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        attributes:
+          title: Attributes
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        risk_subfactors:
+          title: Risk Subfactors
+          type: array
+          items:
+            $ref: '#/components/schemas/RiskSubfactor'
+    AttributeDataElementValue:
+      title: AttributeDataElementValue
+      required:
+      - attribute_key
+      type: object
+      properties:
+        data_element_type:
+          title: Data Element Type
+          enum:
+          - attribute
+          type: string
+          default: attribute
+        attribute_key:
+          title: Attribute Key
+          type: string
+        value:
+          title: Value
+          anyOf:
+          - type: string
+          - type: boolean
+          - type: integer
+          - type: number
+          - $ref: '#/components/schemas/EntityTableFieldValue'
+        formatted_value:
+          title: Formatted Value
+          type: string
+    PostOrganizationsStaticCustomFieldsValuesRequest:
+      title: PostOrganizationsStaticCustomFieldsValuesRequest
+      required:
+      - custom_field_slugs
+      - organizations
+      type: object
+      properties:
+        custom_field_slugs:
+          title: Custom Field Slugs
+          maxItems: 50
+          minItems: 1
+          type: array
+          items:
+            type: string
+        organizations:
+          title: Organizations
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PostOrganizationWithStaticCustomFieldValues'
+    EntityTableFieldValue:
+      title: EntityTableFieldValue
+      required:
+      - column_slugs
+      - rows
+      type: object
+      properties:
+        column_slugs:
+          title: Column Slugs
+          type: array
+          items:
+            type: string
+          description: The slugs of the columns. The ordering of the slugs derives the ordering of cell values within the rows.
+        rows:
+          title: Rows
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityTableFieldValueRow'
+          description: The rows making up this table value.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
           type: string
       required:
-      - detail
-      title: HTTPError
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
+    RiskSubfactor:
+      title: RiskSubfactor
+      required:
+      - risk_subfactor_key
+      type: object
+      properties:
+        risk_subfactor_key:
+          title: Risk Subfactor Key
+          type: string
+        risk_subfactor_name:
+          title: Risk Subfactor Name
+          type: string
+        risk_subfactor_segment:
+          title: Risk Subfactor Segment
+          type: string
+        risk_subfactor_description:
+          title: Risk Subfactor Description
+          type: string
+        risk_factor_key:
+          title: Risk Factor Key
+          type: string
   securitySchemes:
-    Interos API Key:
+    Interos_API_Key:
       in: header
       name: x-api-key
       type: apiKey
-    Interos Customer ID:
+    Interos_Customer_ID:
       in: header
       name: x-customer-id
       type: apiKey

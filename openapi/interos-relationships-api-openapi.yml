@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Interos Groups Relationships API
+  title: Interos Relationships API
   version: 1.0.0
   description: This API uses location data provided by https://geocode.earth/
   x-logo: https://www.interos.ai/wp-content/uploads/2019/12/logo_blue-black-1.png
@@ -208,14 +208,54 @@ paths:
       - Relationships
 components:
   schemas:
-    IScore:
+    SimplePathOrganization:
       properties:
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        score:
-          title: Score
-          type: integer
-      title: IScore
+        country_code:
+          title: Country Code
+          type:
+          - string
+          - 'null'
+        organization_id:
+          format: uuid
+          title: Organization Id
+          type: string
+        organization_name:
+          title: Organization Name
+          type:
+          - string
+          - 'null'
+        risk_factor_scores:
+          items:
+            $ref: '#/components/schemas/SimpleScore'
+          title: Risk Factor Scores
+          type:
+          - array
+          - 'null'
+        risk_score:
+          allOf:
+          - $ref: '#/components/schemas/IScore'
+          title: Risk Score
+        primary_industry:
+          title: DEPRECATED Primary Industry
+          type:
+          - string
+          - 'null'
+          description: DEPRECATED Primary Industry Name
+        industry_category_code:
+          title: Industry Category Code
+          type:
+          - string
+          - 'null'
+          description: Industry Category Code
+        industry_category_name:
+          title: Industry Category Name
+          type:
+          - string
+          - 'null'
+          description: Industry Category Name
+      required:
+      - organization_id
+      title: SimplePathOrganization
       type: object
     HTTPValidationError:
       properties:
@@ -225,31 +265,6 @@ components:
           title: Detail
           type: array
       title: HTTPValidationError
-      type: object
-    ForbiddenError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
-    SimpleScore:
-      properties:
-        label:
-          title: Label
-          type: string
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        name:
-          title: Name
-          type: string
-        score:
-          title: Score
-          type: integer
-      required:
-      - name
-      - label
-      title: SimpleScore
       type: object
     ScoreLevel:
       description: An enumeration.
@@ -261,6 +276,24 @@ components:
       - 'No'
       title: ScoreLevel
       type: string
+    SimplePathOrganizationList:
+      properties:
+        data:
+          default: []
+          items:
+            items:
+              $ref: '#/components/schemas/SimplePathOrganization'
+            type: array
+          title: Data
+          type: array
+        next:
+          title: Next
+          type: string
+        total_count:
+          title: Total Count
+          type: integer
+      title: SimplePathOrganizationList
+      type: object
     ValidationError:
       properties:
         loc:
@@ -282,6 +315,22 @@ components:
       - type
       title: ValidationError
       type: object
+    IScore:
+      properties:
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        score:
+          title: Score
+          type: integer
+      title: IScore
+      type: object
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
     HTTPError:
       properties:
         detail:
@@ -291,74 +340,30 @@ components:
       - detail
       title: HTTPError
       type: object
-    SimplePathOrganization:
+    SimpleScore:
       properties:
-        country_code:
-          nullable: true
-          title: Country Code
+        label:
+          title: Label
           type: string
-        organization_id:
-          format: uuid
-          title: Organization Id
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        name:
+          title: Name
           type: string
-        organization_name:
-          nullable: true
-          title: Organization Name
-          type: string
-        risk_factor_scores:
-          items:
-            $ref: '#/components/schemas/SimpleScore'
-          nullable: true
-          title: Risk Factor Scores
-          type: array
-        risk_score:
-          allOf:
-          - $ref: '#/components/schemas/IScore'
-          nullable: true
-          title: Risk Score
-        primary_industry:
-          nullable: true
-          title: DEPRECATED Primary Industry
-          type: string
-          description: DEPRECATED Primary Industry Name
-        industry_category_code:
-          nullable: true
-          title: Industry Category Code
-          type: string
-          description: Industry Category Code
-        industry_category_name:
-          nullable: true
-          title: Industry Category Name
-          type: string
-          description: Industry Category Name
-      required:
-      - organization_id
-      title: SimplePathOrganization
-      type: object
-    SimplePathOrganizationList:
-      properties:
-        data:
-          default: []
-          items:
-            items:
-              $ref: '#/components/schemas/SimplePathOrganization'
-            type: array
-          title: Data
-          type: array
-        next:
-          title: Next
-          type: string
-        total_count:
-          title: Total Count
+        score:
+          title: Score
           type: integer
-      title: SimplePathOrganizationList
+      required:
+      - name
+      - label
+      title: SimpleScore
       type: object
   securitySchemes:
-    Interos API Key:
+    Interos_API_Key:
       in: header
       name: x-api-key
       type: apiKey
-    Interos Customer ID:
+    Interos_Customer_ID:
       in: header
       name: x-customer-id
       type: apiKey

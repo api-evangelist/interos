@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Interos Groups health API
+  title: Interos Health API
   version: 1.0.0
   description: This API uses location data provided by https://geocode.earth/
   x-logo: https://www.interos.ai/wp-content/uploads/2019/12/logo_blue-black-1.png
@@ -10,7 +10,7 @@ security:
 - Interos API Key: []
 - Interos Customer ID: []
 tags:
-- name: health
+- name: Health
 paths:
   /health:
     get:
@@ -39,16 +39,11 @@ paths:
           description: Forbidden Response
       summary: Validate that a developer api-key is still active
       tags:
-      - health
+      - Health
+      operationId: getHealth
+      x-operation-id-source: derived
 components:
   schemas:
-    ForbiddenError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
     validApiKey:
       properties:
         statusCode:
@@ -67,12 +62,19 @@ components:
       - valid
       title: validApiKey
       type: object
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
   securitySchemes:
-    Interos API Key:
+    Interos_API_Key:
       in: header
       name: x-api-key
       type: apiKey
-    Interos Customer ID:
+    Interos_Customer_ID:
       in: header
       name: x-customer-id
       type: apiKey

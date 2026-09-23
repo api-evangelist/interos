@@ -1,22 +1,33 @@
 {
   "provider": "interos",
   "sources": [
-    "interos-groups-api-openapi.yml",
-    "interos-health-api-openapi.yml",
-    "interos-organizations-api-openapi.yml",
-    "interos-relationships-api-openapi.yml",
-    "interos-watchtower-api-openapi.yml"
+    "_original/interos-openapi.json"
   ],
   "outputs": [
     "interos-groups-api-openapi.yml",
-    "interos-health-api-openapi.yml",
     "interos-organizations-api-openapi.yml",
     "interos-relationships-api-openapi.yml",
-    "interos-watchtower-api-openapi.yml"
+    "interos-watchtower-api-openapi.yml",
+    "interos-health-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "interos-openapi.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0; renamed 2 component key(s) illegal in 3.x (e.g. Interos API Key)",
+    "interos-openapi.json: declared missing tag: Groups",
+    "interos-openapi.json: declared missing tag: Organizations",
+    "interos-openapi.json: declared missing tag: Relationships",
+    "interos-openapi.json: declared missing tag: Watchtower",
+    "interos-openapi.json: declared missing tag: health",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "interos-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "interos-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "interos-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "interos-relationships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "interos-watchtower-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
