@@ -257,15 +257,6 @@ components:
       - organization_id
       title: SimplePathOrganization
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     ScoreLevel:
       description: An enumeration.
       enum:
@@ -276,6 +267,49 @@ components:
       - 'No'
       title: ScoreLevel
       type: string
+    IScore:
+      properties:
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        score:
+          title: Score
+          type: integer
+      title: IScore
+      type: object
+    SimpleScore:
+      properties:
+        label:
+          title: Label
+          type: string
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        name:
+          title: Name
+          type: string
+        score:
+          title: Score
+          type: integer
+      required:
+      - name
+      - label
+      title: SimpleScore
+      type: object
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
+    HTTPError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      required:
+      - detail
+      title: HTTPError
+      type: object
     SimplePathOrganizationList:
       properties:
         data:
@@ -315,48 +349,14 @@ components:
       - type
       title: ValidationError
       type: object
-    IScore:
-      properties:
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        score:
-          title: Score
-          type: integer
-      title: IScore
-      type: object
-    ForbiddenError:
+    HTTPValidationError:
       properties:
         detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
           title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
-    HTTPError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      required:
-      - detail
-      title: HTTPError
-      type: object
-    SimpleScore:
-      properties:
-        label:
-          title: Label
-          type: string
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        name:
-          title: Name
-          type: string
-        score:
-          title: Score
-          type: integer
-      required:
-      - name
-      - label
-      title: SimpleScore
+          type: array
+      title: HTTPValidationError
       type: object
   securitySchemes:
     Interos_API_Key:

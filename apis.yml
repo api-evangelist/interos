@@ -52,7 +52,7 @@ tags:
 - Supply Chain
 - Risk Management
 - Supplier Risk
-- Third-Party Risk
+- Third-Party Risk Management
 - Artificial Intelligence
 tags_raw:
 - Company
@@ -79,7 +79,7 @@ apis:
   - type: Authentication
     url: authentication/interos-authentication.yml
 - aid: interos:interos-health-api
-  name: Interos health API
+  name: Interos Health API
   description: The health API from Interos — 1 operation(s) for health.
   humanURL: https://api.interos.ai/docs
   baseURL: https://api.interos.ai
