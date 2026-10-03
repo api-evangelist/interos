@@ -192,57 +192,97 @@ paths:
       - Organizations
 components:
   schemas:
-    OrganizationGroupBase:
+    HTTPValidationError:
       properties:
-        group_id:
-          format: uuid
-          title: Group Id
-          type: string
-          description: Unique identifier of the customer defined group
-        name:
-          title: Name
-          type: string
-          description: Name of the customer defined group
-      required:
-      - group_id
-      - name
-      title: OrganizationGroupBase
-      type: object
-    UnauthorizedError:
-      properties:
-        message:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
           title: Detail
-          type: string
-      title: UnauthorizedError
+          type: array
+      title: HTTPValidationError
       type: object
-    Score:
+    RestrictedList:
       properties:
-        description:
-          title: Description
+        list_category:
+          title: List Category
           type:
           - string
           - 'null'
-        label:
-          title: Label
+          description: Label under which the Restrictions list is categorized
+        list_description:
+          title: List Description
+          type:
+          - string
+          - 'null'
+          description: Short description of the Restrictions list
+        list_id:
+          format: uuid
+          title: List Id
           type: string
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        name:
-          title: Name
+          description: Interos unique ID for the Restrictions list
+        list_key:
+          title: List Key
+          type:
+          - string
+          - 'null'
+          description: (Unused)
+        list_name:
+          title: List Name
           type: string
-        score:
-          title: Score
-          type: integer
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
+          description: Short name of the Restrictions list
+        list_segment:
+          allOf:
+          - $ref: '#/components/schemas/Segment'
+          default: Firm
+          description: Indicates whether the Restrictions list applies to the organization or primary country
+        list_source_url:
+          title: List Source Url
+          type:
+          - string
+          - 'null'
+          description: URL to where the Restrictions list can be accessed
+        list_additional_context:
+          title: List Additional Context
+          type:
+          - string
+          - 'null'
+          description: Description that explains why the company is on a restrictions list
+        list_first_added_date:
+          title: List First Added Date
+          type:
+          - string
+          - 'null'
+          description: The date a company was first added to a restrictions list
+        list_removed_date:
+          title: List Removed Date
+          type:
+          - string
+          - 'null'
+          description: The date a company was removed from a restrictions list
+        list_last_observed_date:
+          title: List Last Observed Date
+          type:
+          - string
+          - 'null'
+          description: The date a company's listing was most recently updated
+        list_active_status:
+          title: List Active Status
+          type:
+          - boolean
+          - 'null'
+          description: Indicator to identify if a restriction is active or not
       required:
-      - name
-      - label
-      - timestamp
-      title: Score
+      - list_id
+      - list_name
+      title: RestrictedList
       type: object
+    OrganizationDetailLevel:
+      description: An enumeration.
+      enum:
+      - detailed
+      - basic
+      title: OrganizationDetailLevel
+      type: string
     Organization:
       properties:
         country_code:
@@ -442,83 +482,6 @@ components:
       - name
       title: Organization
       type: object
-    IScore:
-      properties:
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        score:
-          title: Score
-          type: integer
-      title: IScore
-      type: object
-    RiskAttribute:
-      properties:
-        description:
-          title: Description
-          type: string
-        display_value:
-          title: Display Value
-          type: string
-        key:
-          title: Key
-          type: string
-        label:
-          title: Label
-          type: string
-        source_name:
-          title: Source Name
-          type: string
-        source_url:
-          title: Source Url
-          type: string
-        value:
-          title: Value
-          type: string
-      required:
-      - key
-      - label
-      title: RiskAttribute
-      type: object
-    Address:
-      properties:
-        city:
-          title: City
-          type: string
-          description: City of the organization's branch location
-        country_code:
-          title: Country Code
-          type: string
-          description: 3 digit country code of organization's branch location
-        is_primary:
-          title: Is Primary
-          type: boolean
-          description: Not used - see ultimate_parent fields
-        latitude:
-          title: Latitude
-          type: number
-          description: Latitude of organization's branch location
-        longitude:
-          title: Longitude
-          type: number
-          description: Longitude of organization's branch location
-        postal_code:
-          title: Postal Code
-          type: string
-          description: Postal code of organization's branch location
-        province:
-          title: Province
-          type: string
-          description: Province of organization's branch location
-        street_address:
-          title: Street Address
-          type: string
-          description: Street address of organization's branch location (Line 1)
-        street_address_2:
-          title: Street Address 2
-          type: string
-          description: Street address of organization's branch location (Line 2)
-      title: Address
-      type: object
     RiskVariableScore:
       properties:
         attributes:
@@ -557,122 +520,12 @@ components:
       - timestamp
       title: RiskVariableScore
       type: object
-    ScoreLevel:
-      description: An enumeration.
-      enum:
-      - Low
-      - Medium
-      - High
-      - Extreme
-      - 'No'
-      title: ScoreLevel
-      type: string
-    OrganizationDetailLevel:
-      description: An enumeration.
-      enum:
-      - detailed
-      - basic
-      title: OrganizationDetailLevel
-      type: string
-    RiskProfile:
-      properties:
-        overall:
-          $ref: '#/components/schemas/Score'
-        risk_factors:
-          items:
-            $ref: '#/components/schemas/RiskFactorScore'
-          title: Risk Factors
-          type: array
-      required:
-      - overall
-      title: RiskProfile
-      type: object
-    ProductCategory:
-      properties:
-        product_category_name:
-          title: Product Cateogry Name
-          type: string
-          description: Product category name
-        last_observed_date:
-          title: Last Observed Date
-          type: string
-          description: Most recent date when this organization was observed to have bought or sold this product category
-      title: ProductCategory
-      type: object
-    HTTPError:
+    ForbiddenError:
       properties:
         detail:
           title: Detail
           type: string
-      required:
-      - detail
-      title: HTTPError
-      type: object
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    RiskFactorScore:
-      properties:
-        description:
-          title: Description
-          type:
-          - string
-          - 'null'
-          description: Short description of the Risk Factor this data supports
-        label:
-          title: Label
-          type: string
-          description: Overarching label that is given to the Risk Factor
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-          description: Level of risk that the Risk Factor data presents to the organization
-        name:
-          title: Name
-          type: string
-          description: 'Name of Risk Factor this data supports: Cyber, Finance, ESG, Geopolitical, Operations, or Restrictions'
-        risk_variables:
-          items:
-            $ref: '#/components/schemas/RiskVariableScore'
-          title: Risk Variables
-          type:
-          - array
-          - 'null'
-        score:
-          title: Score
-          type: integer
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-        count_restriction_lists:
-          title: Count Restriction Lists
-          type:
-          - integer
-          - 'null'
-          description: Count of current active restriction lists (only for the restrictions risk factor)
-      required:
-      - level
-      - name
-      - timestamp
-      title: RiskFactorScore
+      title: ForbiddenError
       type: object
     OrganizationSearchLiteResult:
       properties:
@@ -745,12 +598,177 @@ components:
       - id
       title: OrganizationSearchLiteResult
       type: object
-    ForbiddenError:
+    RiskAttribute:
+      properties:
+        description:
+          title: Description
+          type: string
+        display_value:
+          title: Display Value
+          type: string
+        key:
+          title: Key
+          type: string
+        label:
+          title: Label
+          type: string
+        source_name:
+          title: Source Name
+          type: string
+        source_url:
+          title: Source Url
+          type: string
+        value:
+          title: Value
+          type: string
+      required:
+      - key
+      - label
+      title: RiskAttribute
+      type: object
+    Score:
+      properties:
+        description:
+          title: Description
+          type:
+          - string
+          - 'null'
+        label:
+          title: Label
+          type: string
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        name:
+          title: Name
+          type: string
+        score:
+          title: Score
+          type: integer
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - name
+      - label
+      - timestamp
+      title: Score
+      type: object
+    UnauthorizedError:
+      properties:
+        message:
+          title: Detail
+          type: string
+      title: UnauthorizedError
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPError:
       properties:
         detail:
           title: Detail
           type: string
-      title: ForbiddenError
+      required:
+      - detail
+      title: HTTPError
+      type: object
+    RiskFactorScore:
+      properties:
+        description:
+          title: Description
+          type:
+          - string
+          - 'null'
+          description: Short description of the Risk Factor this data supports
+        label:
+          title: Label
+          type: string
+          description: Overarching label that is given to the Risk Factor
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+          description: Level of risk that the Risk Factor data presents to the organization
+        name:
+          title: Name
+          type: string
+          description: 'Name of Risk Factor this data supports: Cyber, Finance, ESG, Geopolitical, Operations, or Restrictions'
+        risk_variables:
+          items:
+            $ref: '#/components/schemas/RiskVariableScore'
+          title: Risk Variables
+          type:
+          - array
+          - 'null'
+        score:
+          title: Score
+          type: integer
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        count_restriction_lists:
+          title: Count Restriction Lists
+          type:
+          - integer
+          - 'null'
+          description: Count of current active restriction lists (only for the restrictions risk factor)
+      required:
+      - level
+      - name
+      - timestamp
+      title: RiskFactorScore
+      type: object
+    RiskProfile:
+      properties:
+        overall:
+          $ref: '#/components/schemas/Score'
+        risk_factors:
+          items:
+            $ref: '#/components/schemas/RiskFactorScore'
+          title: Risk Factors
+          type: array
+      required:
+      - overall
+      title: RiskProfile
+      type: object
+    IScore:
+      properties:
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        score:
+          title: Score
+          type: integer
+      title: IScore
+      type: object
+    ProductCategory:
+      properties:
+        product_category_name:
+          title: Product Cateogry Name
+          type: string
+          description: Product category name
+        last_observed_date:
+          title: Last Observed Date
+          type: string
+          description: Most recent date when this organization was observed to have bought or sold this product category
+      title: ProductCategory
       type: object
     Segment:
       description: An enumeration.
@@ -760,89 +778,71 @@ components:
       - Industry
       title: Segment
       type: string
-    HTTPValidationError:
+    Address:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        city:
+          title: City
+          type: string
+          description: City of the organization's branch location
+        country_code:
+          title: Country Code
+          type: string
+          description: 3 digit country code of organization's branch location
+        is_primary:
+          title: Is Primary
+          type: boolean
+          description: Not used - see ultimate_parent fields
+        latitude:
+          title: Latitude
+          type: number
+          description: Latitude of organization's branch location
+        longitude:
+          title: Longitude
+          type: number
+          description: Longitude of organization's branch location
+        postal_code:
+          title: Postal Code
+          type: string
+          description: Postal code of organization's branch location
+        province:
+          title: Province
+          type: string
+          description: Province of organization's branch location
+        street_address:
+          title: Street Address
+          type: string
+          description: Street address of organization's branch location (Line 1)
+        street_address_2:
+          title: Street Address 2
+          type: string
+          description: Street address of organization's branch location (Line 2)
+      title: Address
       type: object
-    RestrictedList:
+    ScoreLevel:
+      description: An enumeration.
+      enum:
+      - Low
+      - Medium
+      - High
+      - Extreme
+      - 'No'
+      title: ScoreLevel
+      type: string
+    OrganizationGroupBase:
       properties:
-        list_category:
-          title: List Category
-          type:
-          - string
-          - 'null'
-          description: Label under which the Restrictions list is categorized
-        list_description:
-          title: List Description
-          type:
-          - string
-          - 'null'
-          description: Short description of the Restrictions list
-        list_id:
+        group_id:
           format: uuid
-          title: List Id
+          title: Group Id
           type: string
-          description: Interos unique ID for the Restrictions list
-        list_key:
-          title: List Key
-          type:
-          - string
-          - 'null'
-          description: (Unused)
-        list_name:
-          title: List Name
+          description: Unique identifier of the customer defined group
+        name:
+          title: Name
           type: string
-          description: Short name of the Restrictions list
-        list_segment:
-          allOf:
-          - $ref: '#/components/schemas/Segment'
-          default: Firm
-          description: Indicates whether the Restrictions list applies to the organization or primary country
-        list_source_url:
-          title: List Source Url
-          type:
-          - string
-          - 'null'
-          description: URL to where the Restrictions list can be accessed
-        list_additional_context:
-          title: List Additional Context
-          type:
-          - string
-          - 'null'
-          description: Description that explains why the company is on a restrictions list
-        list_first_added_date:
-          title: List First Added Date
-          type:
-          - string
-          - 'null'
-          description: The date a company was first added to a restrictions list
-        list_removed_date:
-          title: List Removed Date
-          type:
-          - string
-          - 'null'
-          description: The date a company was removed from a restrictions list
-        list_last_observed_date:
-          title: List Last Observed Date
-          type:
-          - string
-          - 'null'
-          description: The date a company's listing was most recently updated
-        list_active_status:
-          title: List Active Status
-          type:
-          - boolean
-          - 'null'
-          description: Indicator to identify if a restriction is active or not
+          description: Name of the customer defined group
       required:
-      - list_id
-      - list_name
-      title: RestrictedList
+      - group_id
+      - name
+      title: OrganizationGroupBase
       type: object
   securitySchemes:
     Interos_API_Key:
