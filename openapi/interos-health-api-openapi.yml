@@ -44,13 +44,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ForbiddenError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
     validApiKey:
       properties:
         statusCode:
@@ -68,6 +61,13 @@ components:
       - time
       - valid
       title: validApiKey
+      type: object
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
       type: object
   securitySchemes:
     Interos_API_Key:

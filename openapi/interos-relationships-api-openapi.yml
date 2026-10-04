@@ -208,6 +208,25 @@ paths:
       - Relationships
 components:
   schemas:
+    ScoreLevel:
+      description: An enumeration.
+      enum:
+      - Low
+      - Medium
+      - High
+      - Extreme
+      - 'No'
+      title: ScoreLevel
+      type: string
+    IScore:
+      properties:
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        score:
+          title: Score
+          type: integer
+      title: IScore
+      type: object
     SimplePathOrganizationList:
       properties:
         data:
@@ -225,80 +244,6 @@ components:
           title: Total Count
           type: integer
       title: SimplePathOrganizationList
-      type: object
-    ForbiddenError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
-    IScore:
-      properties:
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        score:
-          title: Score
-          type: integer
-      title: IScore
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    ScoreLevel:
-      description: An enumeration.
-      enum:
-      - Low
-      - Medium
-      - High
-      - Extreme
-      - 'No'
-      title: ScoreLevel
-      type: string
-    SimpleScore:
-      properties:
-        label:
-          title: Label
-          type: string
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        name:
-          title: Name
-          type: string
-        score:
-          title: Score
-          type: integer
-      required:
-      - name
-      - label
-      title: SimpleScore
       type: object
     SimplePathOrganization:
       properties:
@@ -348,6 +293,61 @@ components:
       required:
       - organization_id
       title: SimplePathOrganization
+      type: object
+    SimpleScore:
+      properties:
+        label:
+          title: Label
+          type: string
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        name:
+          title: Name
+          type: string
+        score:
+          title: Score
+          type: integer
+      required:
+      - name
+      - label
+      title: SimpleScore
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     HTTPError:
       properties:
