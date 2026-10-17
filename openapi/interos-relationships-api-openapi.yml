@@ -208,25 +208,6 @@ paths:
       - Relationships
 components:
   schemas:
-    ScoreLevel:
-      description: An enumeration.
-      enum:
-      - Low
-      - Medium
-      - High
-      - Extreme
-      - 'No'
-      title: ScoreLevel
-      type: string
-    IScore:
-      properties:
-        level:
-          $ref: '#/components/schemas/ScoreLevel'
-        score:
-          title: Score
-          type: integer
-      title: IScore
-      type: object
     SimplePathOrganizationList:
       properties:
         data:
@@ -244,6 +225,15 @@ components:
           title: Total Count
           type: integer
       title: SimplePathOrganizationList
+      type: object
+    HTTPError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      required:
+      - detail
+      title: HTTPError
       type: object
     SimplePathOrganization:
       properties:
@@ -294,6 +284,24 @@ components:
       - organization_id
       title: SimplePathOrganization
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    IScore:
+      properties:
+        level:
+          $ref: '#/components/schemas/ScoreLevel'
+        score:
+          title: Score
+          type: integer
+      title: IScore
+      type: object
     SimpleScore:
       properties:
         label:
@@ -311,6 +319,23 @@ components:
       - name
       - label
       title: SimpleScore
+      type: object
+    ScoreLevel:
+      description: An enumeration.
+      enum:
+      - Low
+      - Medium
+      - High
+      - Extreme
+      - 'No'
+      title: ScoreLevel
+      type: string
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
       type: object
     ValidationError:
       properties:
@@ -332,31 +357,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    ForbiddenError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      title: ForbiddenError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    HTTPError:
-      properties:
-        detail:
-          title: Detail
-          type: string
-      required:
-      - detail
-      title: HTTPError
       type: object
   securitySchemes:
     Interos_API_Key:
