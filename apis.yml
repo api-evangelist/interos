@@ -130,6 +130,18 @@ apis:
     url: openapi/interos-watchtower-api-openapi.yml
   - type: Authentication
     url: authentication/interos-authentication.yml
+- aid: interos:interos-my-data-api
+  name: Interos My Data API
+  description: >-
+    My Data endpoints are available exclusively to customers with the My Data Attributes feature enabled.
+    If you don't have access, talk to your CSM to enable first-party data.
+  humanURL: https://api.interos.ai/docs
+  baseURL: https://api.interos.ai
+  tags:
+  - My Data
+  properties:
+  - type: OpenAPI
+    url: openapi/interos-my-data-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

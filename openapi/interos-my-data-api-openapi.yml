@@ -1,0 +1,950 @@
+openapi: 3.2.0
+info:
+  title: Interos My Data API
+  version: 1.0.0
+  description: This API uses location data provided by https://geocode.earth/
+  x-logo: https://www.interos.ai/wp-content/uploads/2019/12/logo_blue-black-1.png
+servers:
+- url: https://api.interos.ai
+security:
+- Interos API Key: []
+- Interos Customer ID: []
+tags:
+- name: My Data
+  description: My Data endpoints are available exclusively to customers with the My Data Attributes feature enabled. If you don't have access, talk to your CSM to enable first-party data.
+paths:
+  /v1/my-data/organizations/attributes:
+    get:
+      summary: Get My Data Attributes
+      description: Retrieves a paginated list of My Data attributes.
+      operationId: get_my_data_attributes_v1_external_my_data_organizations_attributes_get
+      parameters:
+      - name: attribute_keys
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Attribute Keys
+      - name: include_values_summary
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Values Summary
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+          default: 25
+          title: Limit
+        description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+      - name: next
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Identifies where to start the pagination block and should not be sent on the initial request.
+          title: Next
+        description: Identifies where to start the pagination block and should not be sent on the initial request.
+      - name: return_count
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Return total number of affected records. Only valid on the initial request.
+          default: false
+          title: Return Count
+        description: Return total number of affected records. Only valid on the initial request.
+      responses:
+        '200':
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalMyDataAttributesResponse'
+        '403':
+          description: Forbidden Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - My Data
+  /v1/my-data/organizations/{organization_id}/attributes/values:
+    get:
+      summary: Get My Data Attribute Values By Org
+      description: Retrieves a paginated list of My Data attribute values for a single organization.
+      operationId: get_my_data_attribute_values_by_org_v1_external_my_data_organizations__organization_id__attributes_values_get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      - name: attribute_keys
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Attribute Keys
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+          default: 25
+          title: Limit
+        description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+      - name: next
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Identifies where to start the pagination block and should not be sent on the initial request.
+          title: Next
+        description: Identifies where to start the pagination block and should not be sent on the initial request.
+      - name: return_count
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Return total number of affected records. Only valid on the initial request.
+          default: false
+          title: Return Count
+        description: Return total number of affected records. Only valid on the initial request.
+      responses:
+        '200':
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalMyDataAttributeValuesByOrgResponse'
+        '403':
+          description: Forbidden Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - My Data
+    put:
+      summary: Put My Data Attribute Values By Org
+      description: Create or replace My Data attribute values for one organization.
+      operationId: put_my_data_attribute_values_by_org_v1_external_my_data_organizations__organization_id__attributes_values_put
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalUpsertAttributeValuesByOrgRequest'
+      responses:
+        '200':
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalUpsertAttributeValuesByOrgResponse'
+        '403':
+          description: Forbidden Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - My Data
+  /v1/my-data/organizations/attributes/{attribute_key}/values:
+    get:
+      summary: Get My Data Attribute Values By Attribute
+      description: Retrieves a paginated list of My Data attribute values across all organizations that have a value saved for a single attribute.
+      operationId: get_my_data_attribute_values_by_attribute_v1_external_my_data_organizations_attributes__attribute_key__values_get
+      parameters:
+      - name: attribute_key
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Attribute Key
+      - name: organization_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Organization Ids
+      - name: include_organization_groups
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Organization Groups
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          exclusiveMinimum: 0
+          description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+          default: 25
+          title: Limit
+        description: 'Used to limit the number of records returned. Default: 25. Max: 50'
+      - name: next
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Identifies where to start the pagination block and should not be sent on the initial request.
+          title: Next
+        description: Identifies where to start the pagination block and should not be sent on the initial request.
+      - name: return_count
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Return total number of affected records. Only valid on the initial request.
+          default: false
+          title: Return Count
+        description: Return total number of affected records. Only valid on the initial request.
+      responses:
+        '200':
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalMyDataAttributeValueByAttributeResponse'
+        '403':
+          description: Forbidden Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - My Data
+    put:
+      summary: Put My Data Attribute Values By Attribute
+      description: Create or replace My Data attribute organization values for one attribute.
+      operationId: put_my_data_attribute_values_by_attribute_v1_external_my_data_organizations_attributes__attribute_key__values_put
+      parameters:
+      - name: attribute_key
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Attribute Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalUpsertAttributeValuesByAttributeRequest'
+      responses:
+        '200':
+          description: Succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalUpsertAttributeValuesByAttributeResponse'
+        '403':
+          description: Forbidden Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - My Data
+components:
+  schemas:
+    ExternalMyDataAttributeValueByAttributeResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalMyDataAttributeValueByAttribute'
+          type: array
+          title: Data
+          default: []
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+      type: object
+      title: ExternalMyDataAttributeValueByAttributeResponse
+    BooleanAttributeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - BOOLEAN
+          title: Data Type Key
+          default: BOOLEAN
+      type: object
+      title: BooleanAttributeSettings
+    ExternalMyDataAttributesResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalMyDataAttribute'
+          type: array
+          title: Data
+          default: []
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+        reference_data:
+          additionalProperties: true
+          type: object
+          title: Reference Data
+      type: object
+      title: ExternalMyDataAttributesResponse
+    ExternalMyDataAttributeValuesByOrg:
+      properties:
+        attribute_key:
+          type: string
+          title: Attribute Key
+        attribute_name:
+          type: string
+          title: Attribute Name
+        attribute_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Attribute Description
+        data_type_settings:
+          oneOf:
+          - $ref: '#/components/schemas/IntegerAttributeSettings'
+          - $ref: '#/components/schemas/StringAttributeSettings'
+          - $ref: '#/components/schemas/DecimalAttributeSettings'
+          - $ref: '#/components/schemas/BooleanAttributeSettings'
+          - $ref: '#/components/schemas/DateAttributeSettings'
+          - $ref: '#/components/schemas/ExternalEnumDataTypeSettings'
+          title: Data Type Settings
+          discriminator:
+            propertyName: data_type_key
+            mapping:
+              BOOLEAN: '#/components/schemas/BooleanAttributeSettings'
+              DATE: '#/components/schemas/DateAttributeSettings'
+              DECIMAL: '#/components/schemas/DecimalAttributeSettings'
+              ENUM: '#/components/schemas/ExternalEnumDataTypeSettings'
+              INTEGER: '#/components/schemas/IntegerAttributeSettings'
+              STRING: '#/components/schemas/StringAttributeSettings'
+        last_updated_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Updated Date
+        is_interos_defined:
+          type: boolean
+          title: Is Interos Defined
+        value:
+          title: Value
+        value_last_updated_at:
+          type: string
+          format: date-time
+          title: Value Last Updated At
+      type: object
+      required:
+      - attribute_key
+      - attribute_name
+      - data_type_settings
+      - is_interos_defined
+      - value
+      - value_last_updated_at
+      title: ExternalMyDataAttributeValuesByOrg
+    ExternalUpsertAttributeValueByOrg:
+      properties:
+        attribute_key:
+          type: string
+          title: Attribute Key
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: string
+          - type: boolean
+          - items:
+              type: string
+            type: array
+          - type: string
+            format: date
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - attribute_key
+      - value
+      title: ExternalUpsertAttributeValueByOrg
+    ExternalInvalidAttributeValueByAttributeResponse:
+      properties:
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        value:
+          title: Value
+        value_index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Value Index
+        validation_errors:
+          items:
+            $ref: '#/components/schemas/ExternalDataIntakeValidationError'
+          type: array
+          title: Validation Errors
+      type: object
+      required:
+      - organization_id
+      - value
+      - validation_errors
+      title: ExternalInvalidAttributeValueByAttributeResponse
+    ForbiddenError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      title: ForbiddenError
+      type: object
+    DecimalAttributeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - DECIMAL
+          title: Data Type Key
+          default: DECIMAL
+        min_value:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Min Value
+          description: The minimum decimal value that can be saved. Used to validate incoming values.
+        max_value:
+          anyOf:
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: 'null'
+          title: Max Value
+          description: The maximum decimal value that can be saved. Used to validate incoming values.
+      type: object
+      title: DecimalAttributeSettings
+    ValuesSummary:
+      properties:
+        total_count_saved_values:
+          type: integer
+          title: Total Count Saved Values
+          default: 0
+        values_last_saved_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Values Last Saved Date
+      type: object
+      title: ValuesSummary
+    ExternalMyDataAttributeValueByAttribute:
+      properties:
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        organization_name:
+          type: string
+          title: Organization Name
+        country_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country Code
+        primary_industry_category_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Primary Industry Category Name
+        value:
+          title: Value
+        value_last_updated_at:
+          type: string
+          format: date-time
+          title: Value Last Updated At
+        groups:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ExternalMyDataEntityGroup'
+            type: array
+          - type: 'null'
+          title: Groups
+      type: object
+      required:
+      - organization_id
+      - organization_name
+      - value
+      - value_last_updated_at
+      title: ExternalMyDataAttributeValueByAttribute
+    ExternalUpsertAttributeValuesByAttributeRequest:
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ExternalUpsertAttributeValueByAttribute'
+          type: array
+          minItems: 1
+          title: Values
+      type: object
+      required:
+      - values
+      title: ExternalUpsertAttributeValuesByAttributeRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    ExternalUpsertAttributeValueByAttribute:
+      properties:
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          - type: string
+          - type: boolean
+          - items:
+              type: string
+            type: array
+          - type: string
+            format: date
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - organization_id
+      - value
+      title: ExternalUpsertAttributeValueByAttribute
+    IntegerAttributeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - INTEGER
+          title: Data Type Key
+          default: INTEGER
+        min_value:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Value
+          description: The minimum integer value that can be saved. Used to validate incoming values.
+        max_value:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Value
+          description: The maximum integer value that can be saved. Used to validate incoming values.
+      type: object
+      title: IntegerAttributeSettings
+    ExternalMyDataAttributeValuesByOrgResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ExternalMyDataAttributeValuesByOrg'
+          type: array
+          title: Data
+          default: []
+        total_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Count
+        next:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next
+      type: object
+      title: ExternalMyDataAttributeValuesByOrgResponse
+    ExternalInvalidAttributeValueByOrgResponse:
+      properties:
+        attribute_key:
+          type: string
+          title: Attribute Key
+        value:
+          title: Value
+        value_index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Value Index
+        validation_errors:
+          items:
+            $ref: '#/components/schemas/ExternalDataIntakeValidationError'
+          type: array
+          title: Validation Errors
+      type: object
+      required:
+      - attribute_key
+      - value
+      - validation_errors
+      title: ExternalInvalidAttributeValueByOrgResponse
+    ExternalUpsertAttributeValuesByOrgResponse:
+      properties:
+        target_organization_id:
+          type: string
+          format: uuid
+          title: Target Organization Id
+        updated_attribute_keys:
+          items:
+            type: string
+          type: array
+          title: Updated Attribute Keys
+          default: []
+        invalid_values:
+          items:
+            $ref: '#/components/schemas/ExternalInvalidAttributeValueByOrgResponse'
+          type: array
+          title: Invalid Values
+          default: []
+      type: object
+      required:
+      - target_organization_id
+      title: ExternalUpsertAttributeValuesByOrgResponse
+    ExternalEnumDataTypeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - ENUM
+          title: Data Type Key
+          default: ENUM
+        allowed_options:
+          items:
+            type: string
+          type: array
+          title: Allowed Options
+          description: The defined list of text options that can be used as values.
+        allow_multi_value:
+          type: boolean
+          title: Allow Multi Value
+          description: Whether more than 1 valid text option can be saved on a single organization for the attribute.
+          default: false
+      type: object
+      required:
+      - allowed_options
+      title: ExternalEnumDataTypeSettings
+    ExternalUpsertAttributeValuesByOrgRequest:
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/ExternalUpsertAttributeValueByOrg'
+          type: array
+          minItems: 1
+          title: Values
+      type: object
+      required:
+      - values
+      title: ExternalUpsertAttributeValuesByOrgRequest
+    ExternalMyDataAttribute:
+      properties:
+        key:
+          type: string
+          title: Key
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        data_type_settings:
+          oneOf:
+          - $ref: '#/components/schemas/IntegerAttributeSettings'
+          - $ref: '#/components/schemas/StringAttributeSettings'
+          - $ref: '#/components/schemas/DecimalAttributeSettings'
+          - $ref: '#/components/schemas/BooleanAttributeSettings'
+          - $ref: '#/components/schemas/DateAttributeSettings'
+          - $ref: '#/components/schemas/ExternalEnumDataTypeSettings'
+          title: Data Type Settings
+          discriminator:
+            propertyName: data_type_key
+            mapping:
+              BOOLEAN: '#/components/schemas/BooleanAttributeSettings'
+              DATE: '#/components/schemas/DateAttributeSettings'
+              DECIMAL: '#/components/schemas/DecimalAttributeSettings'
+              ENUM: '#/components/schemas/ExternalEnumDataTypeSettings'
+              INTEGER: '#/components/schemas/IntegerAttributeSettings'
+              STRING: '#/components/schemas/StringAttributeSettings'
+        last_updated_date:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Updated Date
+        is_interos_defined:
+          type: boolean
+          title: Is Interos Defined
+        values_summary:
+          anyOf:
+          - $ref: '#/components/schemas/ValuesSummary'
+          - type: 'null'
+      type: object
+      required:
+      - key
+      - name
+      - data_type_settings
+      - is_interos_defined
+      title: ExternalMyDataAttribute
+    ExternalDataIntakeValidationError:
+      properties:
+        type:
+          $ref: '#/components/schemas/DataIntakeValidationErrorReasons'
+          description: The reason for the failed validation.
+        message:
+          type: string
+          title: Message
+          description: The message describing the failed validation.
+      type: object
+      required:
+      - type
+      - message
+      title: ExternalDataIntakeValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    DataIntakeValidationErrorReasons:
+      type: string
+      enum:
+      - attribute_not_found
+      - attribute_not_supported
+      - invalid_data_type
+      - numeric_value_out_of_range
+      - string_value_length_out_of_range
+      - string_value_cannot_be_empty
+      - organization_id_does_not_exist
+      - organization_id_not_eligible
+      - invalid_date_format
+      - invalid_calendar_date
+      - enum_value_not_in_allowed_options
+      - enum_at_least_1_option_required
+      - enum_multi_value_not_allowed
+      - enum_duplicate_values_provided
+      - validation_error
+      title: DataIntakeValidationErrorReasons
+    StringAttributeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - STRING
+          title: Data Type Key
+          default: STRING
+        min_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Length
+          description: The minimum character length of a text value. Used to validate incoming values.
+        max_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Length
+          description: The maximum character length of a text value. Used to validate incoming values.
+      type: object
+      title: StringAttributeSettings
+    DateAttributeSettings:
+      properties:
+        data_type_key:
+          type: string
+          enum:
+          - DATE
+          title: Data Type Key
+          default: DATE
+      type: object
+      title: DateAttributeSettings
+    ExternalMyDataEntityGroup:
+      properties:
+        group_id:
+          type: string
+          format: uuid
+          title: Group Id
+        group_name:
+          type: string
+          title: Group Name
+      type: object
+      required:
+      - group_id
+      - group_name
+      title: ExternalMyDataEntityGroup
+    HTTPError:
+      properties:
+        detail:
+          title: Detail
+          type: string
+      required:
+      - detail
+      title: HTTPError
+      type: object
+    ExternalUpsertAttributeValuesByAttributeResponse:
+      properties:
+        updated_organization_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Updated Organization Ids
+          default: []
+        invalid_values:
+          items:
+            $ref: '#/components/schemas/ExternalInvalidAttributeValueByAttributeResponse'
+          type: array
+          title: Invalid Values
+          default: []
+      type: object
+      title: ExternalUpsertAttributeValuesByAttributeResponse
+  securitySchemes:
+    Interos_API_Key:
+      in: header
+      name: x-api-key
+      type: apiKey
+    Interos_Customer_ID:
+      in: header
+      name: x-customer-id
+      type: apiKey
