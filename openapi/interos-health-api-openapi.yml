@@ -78,3 +78,9 @@ components:
       in: header
       name: x-customer-id
       type: apiKey
+x-provenance:
+  method: harvested
+  publisher: Interos
+  source: https://api.interos.ai/external_open_api
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
