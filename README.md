@@ -64,6 +64,130 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Interos is a company surfaced as a portfolio company of kleiner-perkins and added to the API Evangelist network as a stub for enrichment. Sector: enterprise. This profile is a lead awaiting the enrichment pipeline.
+Interos operates an automated supplier-resilience platform that maps and continuously monitors extended, multi-tier supply chains for Fortune 1000 companies and federal agencies. Its cloud-native, multi-tenant SaaS uses AI and a large B2B relationship graph to deliver real-time, multi-domain risk scores and alerts. The public Interos API (REST/JSON, OpenAPI 3.0.2) exposes organization search, organization and risk profiles, the supplier relationship graph, organization groups, custom fields, and scenario watchlists, authenticated with x-api-key and x-customer-id headers. Headquartered in Arlington, Virginia; backed by Kleiner Perkins.
 
-Backed by: kleiner-perkins — https://www.interos.ai
+**Areas:** Company · Enterprise · Supply Chain · Risk Management · Supplier Risk · Third-Party Risk Management · Artificial Intelligence
+
+## Interos on APIs.io
+
+Everything profiled for Interos is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/interos/](https://apis.io/providers/interos/)** — or go straight to one of the APIs or properties below.
+
+### APIs (5)
+
+- [Interos Groups API](https://apis.io/apis/interos/interos-groups-api/) — The Groups API from Interos — 2 operation(s) for groups.
+- [Interos Health API](https://apis.io/apis/interos/interos-health-api/) — The health API from Interos — 1 operation(s) for health.
+- [Interos Organizations API](https://apis.io/apis/interos/interos-organizations-api/) — The Organizations API from Interos — 2 operation(s) for organizations.
+- [Interos Relationships API](https://apis.io/apis/interos/interos-relationships-api/) — The Relationships API from Interos — 2 operation(s) for relationships.
+- [Interos Watchtower API](https://apis.io/apis/interos/interos-watchtower-api/) — The Watchtower API from Interos — 3 operation(s) for watchtower.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [interos](https://apis.io/servers/interos/interos/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Interos Agentic Access](https://apis.io/agentic-access/interos/interos-agentic-access/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Interos Groups API](https://apis.io/collections/interos/open-interos-groups-api/)
+- [Interos Groups health API](https://apis.io/collections/interos/open-interos-health-api/)
+- [Interos Groups Organizations API](https://apis.io/collections/interos/open-interos-organizations-api/)
+- [Interos Groups Relationships API](https://apis.io/collections/interos/open-interos-relationships-api/)
+- [Interos Groups Watchtower API](https://apis.io/collections/interos/open-interos-watchtower-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Interos Openapi Overlay](https://apis.io/overlays/interos/interos-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Interos Authentication](https://apis.io/security/interos/interos-authentication/)
+- [Interos Domain Security](https://apis.io/security/interos/interos-domain-security/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Interos Rate Limits](https://apis.io/rate-limits/interos/interos-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.interos.ai)
+- [Documentation](https://api.interos.ai/docs)
+- [API reference](https://api.interos.ai/docs)
+- [Blog](https://www.interos.ai/press)
+- [Terms of service](https://www.interos.ai/termsofservice)
+- [Privacy policy](https://www.interos.ai/privacy-policy/)
+- [Status](https://status.interos.ai/)
+
+## API Evangelist rating
+
+**Kin Score 39.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 50.5 |
+| Contract governance | 4.5 |
+| Operational transparency | 36.8 |
+| Developer ergonomics | 42.3 |
+| Access clarity | 27.6 |
+
+**Agent readiness 28.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/interos/](https://apis.io/providers/interos/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Interos: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/interos/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
